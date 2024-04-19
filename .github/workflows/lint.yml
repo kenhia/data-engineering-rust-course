@@ -12,6 +12,6 @@ jobs:
           toolchain: stable
           components: clippy, rustfmt
           override: true
-      - uses: actions-rs/clippy-check@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Clippy check
+        run: make lint
+
