@@ -1,17 +1,20 @@
-on: [push, pull_request]
-
 name: Clippy
 
+on: [push, pull_request]
+
 jobs:
-  clippy_check:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-          components: clippy, rustfmt
+          profile: minimal
           override: true
       - name: Clippy check
         run: make lint
-
