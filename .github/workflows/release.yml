@@ -1,18 +1,20 @@
-name: Build binary release
+name: Release
 
 on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           profile: minimal
-          components: clippy, rustfmt
           override: true
-      - name: Build release
+      - name: Build Release
         run: make build-release
